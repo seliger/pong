@@ -39,10 +39,10 @@ paddles = [
     ]
 ball = Rect(mid_screen[0], mid_screen[1], BALL_SIZE, BALL_SIZE)
 
-# Randomly start the ball in one direction or the other (left/right)
+# Randomly start the ball in one direction or the other for either axis.
 # Speed is a list of two values [x, y] that drives the horizontal and
 # vertical speed of the ball.
-speed = [random.choice([-BALL_SPEED, BALL_SPEED]), BALL_SPEED]
+speed = [random.choice([-BALL_SPEED, BALL_SPEED]), random.choice([-BALL_SPEED, BALL_SPEED])]
 current_speed = BALL_SPEED
 
 # Set up a clock to help control frames per second
@@ -95,14 +95,18 @@ while game_loop:
         speed[1] = -speed[1]
 
     # If the ball ends up behind a paddle, reset the ball and record the score
-    if ball.left < int(width * 0.10) or ball.right > int(width * 0.9):
+    if ball.left < int(width * 0.05) or ball.right > int(width * 0.95):
         current_speed = BALL_SPEED
-        speed = [BALL_SPEED, BALL_SPEED]
 
         # Ensure the losing side gets the ball
         if ball.left < mid_screen[0]:
-            speed[0] = -speed[0]
-            
+            speed[0] = -BALL_SPEED
+        else:
+            speed[0] = BALL_SPEED
+
+        # Randomly shoot the ball up or down
+        speed[1] = random.choice([-BALL_SPEED, BALL_SPEED])
+
         ball.update(mid_screen[0], random.randrange(BORDERWIDTH + BALL_SIZE, height - BORDERWIDTH - BALL_SIZE), BALL_SIZE, BALL_SIZE)
 
     # Check for other situations
