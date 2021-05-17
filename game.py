@@ -69,16 +69,16 @@ while game_loop:
 
 
     # AI Code
-    if (ball.left + (BALL_SIZE / 2)) < (width * 0.28) and speed[0] < 0:
-        if (ball.bottom - (BALL_SIZE /2)) < paddles[0].top and paddles[0].top > BORDERWIDTH:
+    if ball.left < (width * 0.28) and speed[0] < 0:
+        if ball.bottom < paddles[0].top and paddles[0].top > BORDERWIDTH:
             paddles[0].move_ip([0, -PADDLE_SPEED])
-        elif (ball.top + (BALL_SIZE /2)) > paddles[0].bottom and paddles[1].bottom < (height - BORDERWIDTH):
+        elif ball.top > paddles[0].bottom and paddles[1].bottom < (height - BORDERWIDTH):
             paddles[0].move_ip([0, PADDLE_SPEED])
 
-    if (ball.left + (BALL_SIZE / 2)) > (width * 0.72) and speed[0] > 0:
-        if (ball.bottom - (BALL_SIZE /2)) < paddles[1].top and paddles[0].top > BORDERWIDTH:
+    if ball.left > (width * 0.72) and speed[0] > 0:
+        if ball.bottom < paddles[1].top and paddles[0].top > BORDERWIDTH:
             paddles[1].move_ip([0, -PADDLE_SPEED])
-        elif (ball.top + (BALL_SIZE /2)) > paddles[1].bottom and paddles[1].bottom < (height - BORDERWIDTH):
+        elif ball.top > paddles[1].bottom and paddles[1].bottom < (height - BORDERWIDTH):
             paddles[1].move_ip([0, PADDLE_SPEED])
 
 
